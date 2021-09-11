@@ -26,3 +26,4 @@ gunicorn==20.1.0
 xmltodict==0.12.0
 arubaapi
 juniper
+junos-eznc
