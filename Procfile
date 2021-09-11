@@ -1,1 +1,1 @@
-web: gunicorn django_project.wsgi 
+web: gunicorn ztest_mode1.wsgi 
