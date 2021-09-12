@@ -315,17 +315,12 @@ def ipDetail(request):
 @api_view(['GET', 'POST'])
 def hostDetail(request):
     if request.method == 'GET':
-        students = hostDetails.objects.all()
+        students = hostDetails.objects.filter(vendorName='cisco')
         print(students)
         serializer = host_detail_Serrializers(students, many=True)
         response = list(serializer.data)
-        data = json.dumps(list(response))
-
-        group_by_value = {}
-        for value in list(response):
-            group_by_value[value] = hostDetails.objects.filter(vendorName=value)
-
-        return Response(group_by_value)
+        cisco_ips = [i['ipaddress'] for i in response]
+        return Response({"ipaddress": {"cisco": cisco_ips}})
 
     if request.method == 'POST':
         serializer = host_detail_Serrializers(data=request.data)
