@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [ '0.0.0.0',
     'damp-caverns-24391.herokuapp.com',
     '127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ztest_ztest1',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

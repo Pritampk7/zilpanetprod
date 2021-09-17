@@ -322,6 +322,7 @@ def hostDetail(request):
         cisco_ips = [i['ipaddress'] for i in response]
         return Response({"ipaddress": {"cisco": cisco_ips}})
 
+
     if request.method == 'POST':
         serializer = host_detail_Serrializers(data=request.data)
         if serializer.is_valid():
