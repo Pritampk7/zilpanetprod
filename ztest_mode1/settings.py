@@ -26,11 +26,11 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'damp-caverns-24391.herokuapp.com',
-    'localhost:4200',
-    '127.0.0.1'
+    'damp-caverns-24391.herokuapp.com'
     ]
-
+CORS_ALLOWED_ORIGINS = [
+    'https://damp-caverns-24391.herokuapp.com'
+    ]
 #Application definition
 
 INSTALLED_APPS = [
@@ -44,10 +44,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders'
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
 
+# CORS_ORIGIN_WHITELIST = [
+#     '0.0.0.0',
+#     'damp-caverns-24391.herokuapp.com',
+#     '127.0.0.1'
+# ]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,3 +139,35 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com"]
+CORS_ORIGIN_WHITELIST = (
+"127.0.0.1:4200",
+"localhost:4200",
+"damp-caverns-24391.herokuapp.com"
+)
+
+
+CORS_ALLOW_CREDENTIALS=True
+
+
+CORS_ALLOW_METHODS = (
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT')
+
+
+CORS_ALLOW_HEADERS = (
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+'Access-Control-Allow-Origin')
