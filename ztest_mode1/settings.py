@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [ '0.0.0.0',
     'damp-caverns-24391.herokuapp.com',
+    'damp-caverns-24391.herokuapp.com/ipAddress',
     '127.0.0.1']
 
 #Application definition
