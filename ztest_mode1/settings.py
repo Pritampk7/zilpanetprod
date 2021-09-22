@@ -27,10 +27,9 @@ DEBUG = True
 
 # APPEND_SLASH = False
 
-# ALLOWED_HOSTS = [
-#     '0.0.0.0',
-#     'damp-caverns-24391.herokuapp.com',
-#     '127.0.0.1']
+ALLOWED_HOSTS = [
+    'damp-caverns-24391.herokuapp.com'
+    ]
 
 #Application definition
 
