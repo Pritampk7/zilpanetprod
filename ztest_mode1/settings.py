@@ -30,7 +30,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'damp-caverns-24391.herokuapp.com'
     ]
-
+CORS_ALLOWED_ORIGINS = [
+    'https://damp-caverns-24391.herokuapp.com'
+    ]
 #Application definition
 
 INSTALLED_APPS = [
