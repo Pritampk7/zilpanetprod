@@ -130,8 +130,10 @@ def cisco_result(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 @api_view(['GET', 'POST'])
+@ensure_csrf_cookie
 def fetchConfigDetail(request):
     if request.method == 'GET':
         students = ipaddress.objects.all()
@@ -294,7 +296,7 @@ def ipList(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 
 @api_view(['GET', 'POST'])
