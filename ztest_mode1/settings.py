@@ -47,13 +47,13 @@ INSTALLED_APPS = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8000', # Allowed host, if CORS_ORIGIN_ALLOW_ALL is False
-#     '0.0.0.0',
-#     'damp-caverns-24391.herokuapp.com',
-#     '127.0.0.1'
-# )
+CORS_ORIGIN_WHITELIST = [
+    '0.0.0.0',
+    'damp-caverns-24391.herokuapp.com',
+    '127.0.0.1'
+]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
