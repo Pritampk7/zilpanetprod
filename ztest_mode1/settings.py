@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 DEBUG = True
 
 ALLOWED_HOSTS = [ '0.0.0.0',
-    'damp-caverns-24391.herokuapp.com/',
+    'damp-caverns-24391.herokuapp.com',
     '127.0.0.1']
 
 Application definition
