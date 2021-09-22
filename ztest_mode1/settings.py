@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [ '0.0.0.0',
     'damp-caverns-24391.herokuapp.com',
     '127.0.0.1']
 
-Application definition
+#Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
