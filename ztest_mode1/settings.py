@@ -25,8 +25,6 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# APPEND_SLASH = False
-
 ALLOWED_HOSTS = [
     'damp-caverns-24391.herokuapp.com'
     ]
@@ -141,3 +139,35 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com"]
+CORS_ORIGIN_WHITELIST = (
+"127.0.0.1:4200",
+"localhost:4200",
+"damp-caverns-24391.herokuapp.com"
+)
+
+
+CORS_ALLOW_CREDENTIALS=True
+
+
+CORS_ALLOW_METHODS = (
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',)
+
+
+CORS_ALLOW_HEADERS = (
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+'Access-Control-Allow-Origin',)
