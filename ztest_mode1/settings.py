@@ -25,12 +25,12 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-APPEND_SLASH = False
+# APPEND_SLASH = False
 
-ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'damp-caverns-24391.herokuapp.com',
-    '127.0.0.1']
+# ALLOWED_HOSTS = [
+#     '0.0.0.0',
+#     'damp-caverns-24391.herokuapp.com',
+#     '127.0.0.1']
 
 #Application definition
 
@@ -49,18 +49,18 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = [
-    '0.0.0.0',
-    'damp-caverns-24391.herokuapp.com',
-    '127.0.0.1'
-]
+# CORS_ORIGIN_WHITELIST = [
+#     '0.0.0.0',
+#     'damp-caverns-24391.herokuapp.com',
+#     '127.0.0.1'
+# ]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
