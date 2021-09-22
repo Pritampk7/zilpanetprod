@@ -18,7 +18,7 @@ from django.urls import path
 from ztest_ztest1 import views as view
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ipAddress/', view.fetchConfigDetail),
+    path('ipAddress', view.fetchConfigDetail),
     path('ipAddress/<int:pk>', view.get_update_delete_entry),
     path('ciscoOutput/', view.cisco_result),
     path('ciscoOutput/<int:pk>', view.delete_from_db),
