@@ -25,10 +25,7 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '0.0.0.0',
-    'damp-caverns-24391.herokuapp.com',
-    'damp-caverns-24391.herokuapp.com/ipAddress',
-    '127.0.0.1']
+#ALLOWED_HOSTS = ['0.0.0.0','damp-caverns-24391.herokuapp.com','damp-caverns-24391.herokuapp.com/ipAddress','127.0.0.1']
 
 #Application definition
 
@@ -43,8 +40,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders'
 ]
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000', # Allowed host, if CORS_ORIGIN_ALLOW_ALL is False
+    '0.0.0.0',
+    'damp-caverns-24391.herokuapp.com',
+    '127.0.0.1'
+)
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
