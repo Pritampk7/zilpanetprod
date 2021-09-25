@@ -146,10 +146,10 @@ def fetchConfigDetail(request):
         serializer = ip_Serrializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            if request.data["ip_address"]["cisco"]["CiscoCommand"] != [""] and request.data["ip_address"]["cisco"][
-                "CiscoIpAddress"] != [""]:
-                cisco_cmds = request.data["ip_address"]["cisco"]["CiscoCommand"]
-                cisco_ip = request.data["ip_address"]["cisco"]["CiscoIpAddress"]
+            if request.data["ip_address"]["cisco"]["command"] != [""] and request.data["ip_address"]["cisco"][
+                "ipAddress"] != [""]:
+                cisco_cmds = request.data["ip_address"]["cisco"]["command"]
+                cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
                 print("here cisco")
                 cisco_Thedes = []
                 for cisco_ip in cisco_ip:
