@@ -86,7 +86,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
         print(type(payload))
         data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://127.0.0.1:8000/ciscoOutput/", data=json.dumps(payload), headers=headers)
+        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers)
         print(r.status_code)
         return json.dumps(display_output, indent=4)
 
