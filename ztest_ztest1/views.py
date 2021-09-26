@@ -102,7 +102,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
         payload = {"cisco_output": out_res}
         print(payload)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://127.0.0.1:8000/ciscoOutput/", data=json.dumps(payload), headers=headers)
+        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
         print(r.status_code)
         return r.status_code
     except SSHException:
@@ -169,7 +169,7 @@ def fetchConfigDetail(request):
                     }
                     payload = {"cisco_output": out_rest}
                     headers = {"content-type": "application/json"}
-                    r = requests.post(url="https://127.0.0.1:8000/ciscoOutput/", data=json.dumps(payload),
+                    r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
                                         headers=headers)
                     print(r.status_code)
                     return Response(serializer.data, status=status.HTTP_200_OK)
