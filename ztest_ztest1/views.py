@@ -28,10 +28,10 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
     display_output = []
     try:
         router = {'ip': cisco_ip,
-                  'username': username,
-                  'password': password,
+                  'username': 'bpetest',
+                  'password': 'bpetest',
                   'device_type': 'cisco_ios',
-                  'secret': secret
+                  'secret': 'G0t2BTuf'
                   }
         print(f"its hurry with {cisco_ip}")
         session = ConnectHandler(**router)
