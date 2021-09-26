@@ -152,7 +152,7 @@ def fetchConfigDetail(request):
             #     cisco_cmds = request.data["ip_address"]["cisco"]["command"]
             #     cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
             cisco_cmds = ['show version']
-            cisco_ip = ['10.182.162.150']
+            cisco_ip = ['10.182.162.149']
             print("here cisco")
             cisco_Thedes = []
             for cisco_ip in cisco_ip:
