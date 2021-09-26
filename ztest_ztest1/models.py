@@ -51,4 +51,4 @@ class hostDetails(models.Model):
     vendorName = models.CharField(max_length=25,null=False, default='cisco')
 
     def __unicode__(self):
-        return self.hostname
+        return self.hostName
