@@ -86,7 +86,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
         print(type(payload))
         data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers)
+        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(display_output, indent=4)
 
@@ -146,10 +146,11 @@ def fetchConfigDetail(request):
         serializer = ip_Serrializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # if request.data["ip_address"]["cisco"]["command"] != [""] and request.data["ip_address"]["cisco"][
-            #     "ipAddress"] != [""]:
-            #cisco_cmds = request.data["ip_address"]["cisco"]["command"]
-            #cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
+            print("serializer",serializer.data)
+            if request.data["ip_address"]["cisco"]["command"] != [""] and request.data["ip_address"]["cisco"][
+                "ipAddress"] != [""]:
+            cisco_cmds = request.data["ip_address"]["cisco"]["command"]
+            cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
             cisco_cmds = ['show version']
             cisco_ip = ['10.182.162.150']
             print("here cisco")
