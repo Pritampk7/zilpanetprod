@@ -42,7 +42,7 @@ class ipWithDetail(models.Model):
 
 class hostDetails(models.Model):
     ipaddress = models.CharField(max_length=25,unique=True)
-    hostname = models.CharField(max_length=25)
+    hostName = models.CharField(max_length=25)
     secret = models.CharField(max_length=25, default='G0t2BTuf')
     username = models.CharField(max_length=25)
     password = models.CharField(max_length=25)
