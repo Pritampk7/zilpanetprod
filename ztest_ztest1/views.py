@@ -147,48 +147,48 @@ def fetchConfigDetail(request):
         if serializer.is_valid():
             serializer.save()
             print("serializer",serializer.data)
-            if request.data["ip_address"]["cisco"]["command"] != [""] and request.data["ip_address"]["cisco"][
-                "ipAddress"] != [""]:
-                cisco_cmds = request.data["ip_address"]["cisco"]["command"]
-                cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
-                cisco_cmds = ['show version']
-                cisco_ip = ['10.182.162.150']
-                print("here cisco")
-                cisco_Thedes = []
-                for cisco_ip in cisco_ip:
-                    dummy_creds = hostDetails.objects.filter(ipaddress=cisco_ip)
-                    serializer = host_detail_Serrializers(dummy_creds, many=True)
-                    response = dict({cisco_ip: serializer.data})
-                    print("##########################")
-                    print(response)
-                    if not response[cisco_ip]:
-                        out_rest = {
-                            "device": cisco_ip,
-                            "stdout": ["THIS DEVICE IS NOT REGISTERED WITH ZILPANET SOFTWARE"],
-                            "failed": True
-                        }
-                        payload = {"cisco_output": out_rest}
-                        headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
-                                            headers=headers)
-                        print(r.status_code)
-                        return Response(serializer.data, status=status.HTTP_200_OK)
-                    # username = response[cisco_ip][0]["username"]
-                    # password = response[cisco_ip][0]["password"]
-                    # secret = response[cisco_ip][0]["secret"]
-                    username = 'bpetest'
-                    password = 'bpetest'
-                    secret = 'G0t2BTuf'
-                    time.sleep(1)
+            # if request.data["ip_address"]["cisco"]["command"] != [""] and request.data["ip_address"]["cisco"][
+            #     "ipAddress"] != [""]:
+            #     cisco_cmds = request.data["ip_address"]["cisco"]["command"]
+            #     cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
+            cisco_cmds = ['show version']
+            cisco_ip = ['10.182.162.150']
+            print("here cisco")
+            cisco_Thedes = []
+            for cisco_ip in cisco_ip:
+                dummy_creds = hostDetails.objects.filter(ipaddress=cisco_ip)
+                serializer = host_detail_Serrializers(dummy_creds, many=True)
+                response = dict({cisco_ip: serializer.data})
+                print("##########################")
+                print(response)
+                if not response[cisco_ip]:
+                    out_rest = {
+                        "device": cisco_ip,
+                        "stdout": ["THIS DEVICE IS NOT REGISTERED WITH ZILPANET SOFTWARE"],
+                        "failed": True
+                    }
+                    payload = {"cisco_output": out_rest}
+                    headers = {"content-type": "application/json"}
+                    r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
+                                        headers=headers)
+                    print(r.status_code)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                # username = response[cisco_ip][0]["username"]
+                # password = response[cisco_ip][0]["password"]
+                # secret = response[cisco_ip][0]["secret"]
+                username = 'bpetest'
+                password = 'bpetest'
+                secret = 'G0t2BTuf'
+                time.sleep(1)
 
-                    my_thread = threading.Thread(
-                        target=cisco_ios,
-                        args=(cisco_ip, cisco_cmds, username, password, secret)
-                    )
-                    my_thread.start()
-                    cisco_Thedes.append(my_thread)
-                for thread in cisco_Thedes:
-                    thread.join()
+                my_thread = threading.Thread(
+                    target=cisco_ios,
+                    args=(cisco_ip, cisco_cmds, username, password, secret)
+                )
+                my_thread.start()
+                cisco_Thedes.append(my_thread)
+            for thread in cisco_Thedes:
+                thread.join()
 
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
