@@ -326,7 +326,14 @@ def hostDetail(request):
         serializer = host_detail_Serrializers(students, many=True)
         response = list(serializer.data)
         cisco_ips = [i['ipaddress'] for i in response]
-        return Response({"ipaddress": {"cisco": cisco_ips}})
+        return Response(
+            {
+            "ipaddress": 
+            {
+                "cisco": cisco_ips,
+                "aruba": "1.2.3.4"
+            }
+            })
 
 
     if request.method == 'POST':
