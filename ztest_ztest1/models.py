@@ -12,7 +12,7 @@ class cisco_output(models.Model):
     data = models.JSONField(null=False, default=dict)
 
     def __str__(self):
-        return self.cisco_output
+        return self.data
 
 
 class device_creds(models.Model):
