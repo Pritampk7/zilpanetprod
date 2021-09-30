@@ -11,9 +11,6 @@ class ipaddress(models.Model):
 class cisco_output(models.Model):
     data = models.JSONField(null=False, default=dict)
 
-    def __str__(self):
-        return self.data
-
 
 class device_creds(models.Model):
     ipaddressCredentials = models.JSONField(null=False, default=dict)
