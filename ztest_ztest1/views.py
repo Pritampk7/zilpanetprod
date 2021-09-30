@@ -324,7 +324,7 @@ def hostDetail(request):
         cisco_devices = hostDetails.objects.filter(vendorName='Cisco')
         cisco_devices_serializer = host_detail_Serrializers(cisco_devices, many=True)
         cisco_response = list(cisco_devices_serializer.data)
-        cisco_ips = [i['ipaddress'] for i in response]
+        cisco_ips = [i['ipaddress'] for i in cisco_response]
         return Response(
             {   
                 "ipaddress": 
