@@ -329,7 +329,7 @@ def hostDetail(request):
             {   
                 "ipaddress": 
                 {
-                    "Cisco": cisco_ips,
+                    "cisco": cisco_ips,
                     "aruba": "1.2.3.4"
                 }
             }

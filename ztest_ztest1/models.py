@@ -9,7 +9,7 @@ class ipaddress(models.Model):
 
 
 class cisco_output(models.Model):
-    cisco_output = models.JSONField(null=False, default=dict)
+    data = models.JSONField(null=False, default=dict)
 
     def __str__(self):
         return self.cisco_output
