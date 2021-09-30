@@ -43,12 +43,12 @@ class ipWithDetail(models.Model):
 class hostDetails(models.Model):
     ipaddress = models.CharField(max_length=25,unique=True)
     hostname = models.CharField(max_length=25)
-    secret = models.CharField(max_length=25, default='123456')
+    secret = models.CharField(max_length=25)
     username = models.CharField(max_length=25)
     password = models.CharField(max_length=25)
     deviceLocation = models.CharField(max_length=25)
     deviceType = models.CharField(max_length=25)
-    vendorName = models.CharField(max_length=25,default='Cisco')
+    vendorName = models.CharField(max_length=25)
 
     def __unicode__(self):
         return self.hostname
