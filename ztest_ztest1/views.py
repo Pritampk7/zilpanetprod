@@ -321,26 +321,24 @@ def ipDetail(request):
 @api_view(['GET', 'POST'])
 def hostDetail(request):
     if request.method == 'GET':
-        students = hostDetails.objects.filter(vendorName='cisco')
+        cisco_devices = hostDetails.objects.filter(vendorName='Cisco')
         print(students)
-        serializer = host_detail_Serrializers(students, many=True)
-        response = list(serializer.data)
+        cisco_devices_serializer = host_detail_Serrializers(cisco_devices, many=True)
+        cisco_response = list(cisco_devices_serializer.data)
         cisco_ips = [i['ipaddress'] for i in response]
         return Response(
-            {
-            "ipaddress": 
-            {
-                "cisco": cisco_ips,
-                "aruba": "1.2.3.4"
+            {   
+                "ipaddress": 
+                {
+                    "cisco": cisco_ips,
+                    "aruba": "1.2.3.4"
+                }
             }
-            })
-
+            )
 
     if request.method == 'POST':
         serializer = host_detail_Serrializers(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            print(dict(serializer.validated_data))
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
