@@ -24,14 +24,14 @@ from netmiko.ssh_exception import NetmikoAuthenticationException
 from paramiko.ssh_exception import SSHException
 
 
-def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
+def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
     display_output = []
     try:
         router = {'ip': cisco_ip,
-                  'username': 'bpetest',
-                  'password': 'bpetest',
+                  'username': username,
+                  'password': password,
                   'device_type': 'cisco_ios',
-                  'secret': 'G0t2BTuf'
+                  'secret': secret
                   }
         print(f"its hurry with {cisco_ip}")
         session = ConnectHandler(**router)
@@ -43,7 +43,6 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
                 time.sleep(2)
                 if type(output) == list:
                     out_res = {
-                        "device": cisco_ip,
                         "command": cmd,
                         "output": output
                     }
@@ -53,7 +52,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
                 else:
                     json_obj = output.replace('\n', ',').split(',')
                     out_res = {
-                        "device": cisco_ip,
+                        
                         "command": cmd,
                         "output": [j.rstrip() for j in json_obj if j != '']
                     }
@@ -73,7 +72,6 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
                 output = session.send_command(cmd)
                 json_obj = output.replace('\n', ',').split(',')
                 out_res = {
-                    "device": cisco_ip,
                     "command": cmd,
                     "output": [j.rstrip() for j in json_obj if j != '']
                 }
@@ -82,7 +80,12 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
             with open(f"{cisco_ip}.logs", 'w') as file:
                 file.write(json.dumps(out_res, indent=4))
 
-        payload = {"cisco_output": display_output}
+        payload = {
+            "timestamp": timestamp,
+            "data": {
+                cisco_ip: display_output
+            }
+        }
         print(type(payload))
         data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
@@ -115,7 +118,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret):
 @api_view(['GET', 'POST'])
 def cisco_result(request):
     if request.method == 'GET':
-        students = cisco_output.objects.all()
+        cisco = cisco_output.objects.filter(timestamp='1')
         serializer = CiscoOut_Serrializers(students, many=True)
         response = list(serializer.data)
         return Response(response)
