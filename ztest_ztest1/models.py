@@ -4,8 +4,8 @@ from django.db import models
 class ipaddress(models.Model):
     ip_address = models.JSONField(null=False, default=dict)
 
-    def __str__(self):
-        return self.ip_address
+    def __unicode__(self):
+        return self.ip_address if self.ip_address else ''
 
 
 class cisco_output(models.Model):
