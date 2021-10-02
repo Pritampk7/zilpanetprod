@@ -118,7 +118,8 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
 @api_view(['GET', 'POST'])
 def cisco_result(request):
     if request.method == 'GET':
-        cisco = cisco_output.objects.filter(timestamp='1')
+        timestamp = request.GET.get('time','')
+        cisco = cisco_output.objects.filter(timestamp=timestamp)
         serializer = CiscoOut_Serrializers(cisco, many=True)
         response = list(serializer.data)
         return Response(response)
