@@ -5,7 +5,7 @@ from .models import ipaddress, cisco_output, device_creds, ipAddressAndHostname,
 class ip_Serrializers(serializers.ModelSerializer):
     class Meta:
         model = ipaddress
-        fields = ['ip_address']
+        fields = ['timestamp','ip_address']
 
 
 class CiscoOut_Serrializers(serializers.ModelSerializer):
