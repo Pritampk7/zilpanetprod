@@ -1,8 +1,9 @@
 from django.db import models
-
+import time
 
 class ipaddress(models.Model):
-    ip_address = models.JSONField(null=False, default=dict)
+    timestamp = models.CharField(null=False, default=time.time(), max_length=30)
+    ip_address = models.JSONField(null=False, default=dict)  
 
     def __unicode__(self):
         return self.ip_address if self.ip_address else ''
