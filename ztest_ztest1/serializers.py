@@ -11,7 +11,7 @@ class ip_Serrializers(serializers.ModelSerializer):
 class CiscoOut_Serrializers(serializers.ModelSerializer):
     class Meta:
         model = cisco_output
-        fields = ['timestamp','data']
+        fields = ['success','timestamp','data']
 
 class credentials_Serrializers(serializers.ModelSerializer):
     class Meta:

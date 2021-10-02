@@ -12,6 +12,7 @@ class ipaddress(models.Model):
 class cisco_output(models.Model):
     data = models.JSONField(null=False, default=dict)
     timestamp = models.CharField(null=False, default="20", max_length=25)
+    success = models.CharField(null=False, default="True", max_length=10)
 
 
 class device_creds(models.Model):
