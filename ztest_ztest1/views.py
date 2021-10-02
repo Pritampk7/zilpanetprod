@@ -99,10 +99,16 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
             "output": {
                 "device": cisco_ip,
                 "output": "unable to connect to device!!!, Please check the connectivity".upper(),
-                "failed": True
             }
         }]
-        payload = {"cisco_output": out_res}
+        display_output.append(out_res)
+        payload = {
+            "success": "False",
+            "timestamp": timestamp,
+            "data": {
+                cisco_ip: display_output
+            }
+        }
         print(payload)
         headers = {"content-type": "application/json"}
         r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
