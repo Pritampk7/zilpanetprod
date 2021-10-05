@@ -339,8 +339,7 @@ def hostDetail(request):
             {   
                 "ipaddress": 
                 {
-                    "cisco": cisco_ips,
-                    "aruba": "1.2.3.4"
+                    "cisco": cisco_ips
                 }
             }
             )
@@ -349,7 +348,7 @@ def hostDetail(request):
         serializer = host_detail_Serrializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
