@@ -331,28 +331,22 @@ def ipDetail(request):
 @api_view(['GET', 'POST'])
 def hostDetail(request):
     if request.method == 'GET':
-        cisco_devices = hostDetails.objects.filter(vendorName='Cisco')
+        cisco_devices = hostDetails.objects.filter(vendorName='cisco')
         print(cisco_devices)
         cisco_devices_serializer = host_detail_Serrializers(cisco_devices, many=True)
         cisco_response = list(cisco_devices_serializer.data)
         cisco_ips = [i['ipaddress'] for i in cisco_response]
         print(cisco_ips)
-        return Response(
-            {   
-                "ipaddress": 
-                {
-                    "cisco": cisco_ips
-                }
-            }
-            )
+        return Response({"ipaddress": {"Cisco": cisco_ips}},status=status.HTTP_200_OK)
 
     if request.method == 'POST':
-        serializer = host_detail_Serrializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+        register_device = host_detail_Serrializers(data=request.data)
+        print(register_device)
+        if register_device.is_valid():          
+            register_device.save()
+            return Response(register_device.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(register_device.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'POST'])
