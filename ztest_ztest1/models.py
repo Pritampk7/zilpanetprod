@@ -50,5 +50,5 @@ class hostDetails(models.Model):
     deviceType = models.CharField(max_length=25)
     vendorName = models.CharField(max_length=25)
 
-    def __unicode__(self):
-        return self.hostname
+    def __str__(self):
+        return self.ipaddress
