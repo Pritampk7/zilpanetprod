@@ -337,7 +337,15 @@ def hostDetail(request):
         cisco_response = list(cisco_devices_serializer.data)
         cisco_ips = [i['ipaddress'] for i in cisco_response]
         print(cisco_ips)
-        return Response({"ipaddress": {"Cisco": cisco_ips}},status=status.HTTP_200_OK)
+        return Response(
+            {
+                "ipaddress": 
+                {
+                    "Cisco": cisco_ips,
+                    "Aruba": ["10.165.130.11","10.165.130.12","10.165.130.13","10.165.130.14","10.165.130.15"],
+                    "Juniper": ["10.178.155.135","10.178.155.136","10.178.155.137","10.178.155.138","10.178.155.139"]
+                }
+                },status=status.HTTP_200_OK)
 
     if request.method == 'POST':
         register_device = host_detail_Serrializers(data=request.data)
