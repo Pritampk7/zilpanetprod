@@ -26,10 +26,12 @@ SECRET_KEY = 'django-insecure-kq_hzs^ed-x@l1crxx9r)ta3)hzcqn!tn_&g_meb@mc^oxrt#d
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'damp-caverns-24391.herokuapp.com'
+    'damp-caverns-24391.herokuapp.com',
+    'http://c6fd-103-152-180-132.ngrok.io'
     ]
 CORS_ALLOWED_ORIGINS = [
-    'https://damp-caverns-24391.herokuapp.com'
+    'https://damp-caverns-24391.herokuapp.com',
+    'http://c6fd-103-152-180-132.ngrok.io'
     ]
 #Application definition
 
@@ -140,11 +142,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com","6136-103-152-180-132.ngrok.io"]
 CORS_ORIGIN_WHITELIST = (
 "127.0.0.1:4200",
 "localhost:4200",
-"damp-caverns-24391.herokuapp.com"
+"damp-caverns-24391.herokuapp.com",
+"6136-103-152-180-132.ngrok.io"
 )
 
 

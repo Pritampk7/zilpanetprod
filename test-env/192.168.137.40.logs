@@ -1,0 +1,13 @@
+{"command": "show version", "output": [{"version": "15.2(4)M7", "rommon": "ROMMON", "hostname": "R1", "uptime": "6 hours, 22 minutes", "uptime_years": "", "uptime_weeks": "", "uptime_days": "", "uptime_hours": "6", "uptime_minutes": "22", "reload_reason": "Unknown reason", "running_image": "//255.255.255.255/unknown", "hardware": ["7206VXR"], "serial": ["4279256517"], "config_register": "0x2102", "mac": [], "restarted": ""}]}          "running_image": "//255.255.255.255/unknown",
+            "hardware": [
+                "7206VXR"
+            ],
+            "serial": [
+                "4279256517"
+            ],
+            "config_register": "0x2102",
+            "mac": [],
+            "restarted": ""
+        }
+    ]
+}

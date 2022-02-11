@@ -1,0 +1,14 @@
+{"command": "show version", "output": [{"version": "16.9.3", "rommon": "IOS-XE", "hostname": "R-1", "uptime": "1 day, 17 hours, 29 minutes", "uptime_years": "", "uptime_weeks": "", "uptime_days": "1", "uptime_hours": "17", "uptime_minutes": "29", "reload_reason": "Reload Command", "running_image": "packages.conf", "hardware": ["CSR1000V"], "serial": ["926V75BDNRJ"], "config_register": "0x2102", "mac": [], "restarted": ""}]}mand",
+            "running_image": "packages.conf",
+            "hardware": [
+                "CSR1000V"
+            ],
+            "serial": [
+                "926V75BDNRJ"
+            ],
+            "config_register": "0x2102",
+            "mac": [],
+            "restarted": ""
+        }
+    ]
+}

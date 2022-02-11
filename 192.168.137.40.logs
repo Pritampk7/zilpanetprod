@@ -1,0 +1,6 @@
+{"command": "show ip interface brief", "output": [{"intf": "FastEthernet0/0", "ipaddr": "192.168.137.40", "status": "up", "proto": "up"}]}92.168.137.40",
+            "status": "up",
+            "proto": "up"
+        }
+    ]
+}

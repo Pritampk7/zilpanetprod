@@ -1,0 +1,11 @@
+{"command": "show version", "output": [{"version": "", "rommon": "", "hostname": "System", "uptime": "6 weeks 4 days 18 hours 49 minutes", "uptime_years": "", "uptime_weeks": "6", "uptime_days": "4", "uptime_hours": "18", "uptime_minutes": "49", "reload_reason": "", "running_image": "", "hardware": [], "serial": [], "config_register": "", "mac": [], "restarted": ""}]}inutes": "49",
+            "reload_reason": "",
+            "running_image": "",
+            "hardware": [],
+            "serial": [],
+            "config_register": "",
+            "mac": [],
+            "restarted": ""
+        }
+    ]
+}

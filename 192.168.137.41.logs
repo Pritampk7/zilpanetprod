@@ -1,0 +1,13 @@
+{"command": "show version", "output": [{"version": "", "rommon": "Bootstrap", "hostname": "Switch", "uptime": "5 hours, 51 minutes", "uptime_years": "", "uptime_weeks": "", "uptime_days": "", "uptime_hours": "5", "uptime_minutes": "51", "reload_reason": "Unknown reason", "running_image": "/vios_l2-adventerprisek9-m", "hardware": ["IOSv"], "serial": ["9AXZHDMNIHI"], "config_register": "0x101", "mac": [], "restarted": ""}]}            "running_image": "/vios_l2-adventerprisek9-m",
+            "hardware": [
+                "IOSv"
+            ],
+            "serial": [
+                "9AXZHDMNIHI"
+            ],
+            "config_register": "0x101",
+            "mac": [],
+            "restarted": ""
+        }
+    ]
+}

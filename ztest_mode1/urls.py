@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from ztest_ztest1 import views as view
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,6 @@ urlpatterns = [
     path('hostDetail/', view.ipDetail),
     path('hostWithDetail/', view.hostDetail),
     path('hostWithDetail/<int:pk>', view.update_device_details),
+    path('configConsolePayload/', view.ciscoConfigConsole),
+    path('ciscoConfigOutput/', view.ciscoConfig_result)
 ]

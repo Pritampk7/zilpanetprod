@@ -29,7 +29,7 @@ class ipAddressAndHostname(models.Model):
         return self.ip_Address
 
 class ipWithDetail(models.Model):
-    ipaddress = models.CharField(max_length=25, unique=True)
+    ipaddress = models.CharField(max_length=255, unique=True)
     hostname = models.ForeignKey(ipAddressAndHostname, related_name='ipaddress', on_delete=models.CASCADE)
     secret = models.CharField(max_length=25)
     username = models.CharField(max_length=25)
@@ -41,7 +41,7 @@ class ipWithDetail(models.Model):
         return self.ipaddress
 
 class hostDetails(models.Model):
-    ipaddress = models.CharField(max_length=25,unique=True)
+    ipaddress = models.CharField(max_length=255,unique=True)
     hostname = models.CharField(max_length=25)
     secret = models.CharField(max_length=25)
     username = models.CharField(max_length=25)
@@ -52,3 +52,19 @@ class hostDetails(models.Model):
 
     def __str__(self):
         return self.ipaddress
+
+#config cisco
+class ciscoConfig(models.Model):
+    success = models.CharField(null=False, default="True", max_length=10)
+    payload = models.JSONField(null=False, default=dict)
+    timestamp = models.CharField(null=False, default=time.time(), max_length=30)
+    
+
+    def __unicode__(self):
+        return self.payload if self.payload else ''
+
+
+class cisco_config_result(models.Model):
+    data = models.JSONField(null=False, default=dict)
+    timestamp = models.CharField(null=False, default="20", max_length=25)
+    success = models.CharField(null=False, default="True", max_length=10)
