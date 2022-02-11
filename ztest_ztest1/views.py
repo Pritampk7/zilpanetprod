@@ -248,7 +248,7 @@ class Juniper:
         return output
 
     def get_optics(self, connect):
-        output = connect.get_optics()
+        output = connect.get_optics() #test
         return output
 
     def get_probes_results(self, connect):
