@@ -142,12 +142,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com","6136-103-152-180-132.ngrok.io"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","damp-caverns-24391.herokuapp.com","6136-103-152-180-132.ngrok.io","zilpa-test.herokuapp.com"]
 CORS_ORIGIN_WHITELIST = (
 "127.0.0.1:4200",
 "localhost:4200",
 "damp-caverns-24391.herokuapp.com",
-"6136-103-152-180-132.ngrok.io"
+"6136-103-152-180-132.ngrok.io",
+"zilpa-test.herokuapp.com"
 )
 
 
