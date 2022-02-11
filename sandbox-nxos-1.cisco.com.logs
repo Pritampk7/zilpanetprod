@@ -1,11 +1,74 @@
-{"command": "show version", "output": [{"version": "", "rommon": "", "hostname": "Kernel", "uptime": "30 day(s), 2 hour(s), 25 minute(s), 0 second(s)", "uptime_years": "", "uptime_weeks": "", "uptime_days": "30", "uptime_hours": "2", "uptime_minutes": "25", "reload_reason": "", "running_image": "", "hardware": [], "serial": [], "config_register": "", "mac": [], "restarted": ""}]}inutes": "25",
-            "reload_reason": "",
-            "running_image": "",
-            "hardware": [],
-            "serial": [],
-            "config_register": "",
-            "mac": [],
-            "restarted": ""
+{"command": "show ip interface brief", "output": [{"vrf": "default", "intf": "Vlan55", "ipaddr": "1.1.1.1", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Vlan58", "ipaddr": "192.168.58.1", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Vlan59", "ipaddr": "192.168.59.1", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Vlan100", "ipaddr": "192.168.10.1", "status": "admin-up", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Lo2", "ipaddr": "2.2.2.2", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo3", "ipaddr": "3.3.3.3", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo4", "ipaddr": "4.4.4.4", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo6", "ipaddr": "6.6.6.6", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo12", "ipaddr": "10.21.2.1", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo55", "ipaddr": "5.5.5.5", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo58", "ipaddr": "58.58.58.58", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo59", "ipaddr": "59.59.59.59", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo99", "ipaddr": "10.99.99.1", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo980", "ipaddr": "10.97.99.7", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo987", "ipaddr": "10.97.97.7", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Lo999", "ipaddr": "9.9.9.9", "status": "admin-up", "link": "link-up", "proto": "protocol-up"}, {"vrf": "default", "intf": "Eth1/50", "ipaddr": "192.168.1.134", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Eth1/50.10", "ipaddr": "10.10.10.10", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Eth1/57", "ipaddr": "192.168.57.254", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Eth1/58", "ipaddr": "192.168.58.254", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}, {"vrf": "default", "intf": "Eth1/59", "ipaddr": "192.168.59.254", "status": "admin-down", "link": "link-down", "proto": "protocol-down"}]}        {
+            "vrf": "default",
+            "intf": "Lo99",
+            "ipaddr": "10.99.99.1",
+            "status": "admin-up",
+            "link": "link-up",
+            "proto": "protocol-up"
+        },
+        {
+            "vrf": "default",
+            "intf": "Lo980",
+            "ipaddr": "10.97.99.7",
+            "status": "admin-up",
+            "link": "link-up",
+            "proto": "protocol-up"
+        },
+        {
+            "vrf": "default",
+            "intf": "Lo987",
+            "ipaddr": "10.97.97.7",
+            "status": "admin-up",
+            "link": "link-up",
+            "proto": "protocol-up"
+        },
+        {
+            "vrf": "default",
+            "intf": "Lo999",
+            "ipaddr": "9.9.9.9",
+            "status": "admin-up",
+            "link": "link-up",
+            "proto": "protocol-up"
+        },
+        {
+            "vrf": "default",
+            "intf": "Eth1/50",
+            "ipaddr": "192.168.1.134",
+            "status": "admin-down",
+            "link": "link-down",
+            "proto": "protocol-down"
+        },
+        {
+            "vrf": "default",
+            "intf": "Eth1/50.10",
+            "ipaddr": "10.10.10.10",
+            "status": "admin-down",
+            "link": "link-down",
+            "proto": "protocol-down"
+        },
+        {
+            "vrf": "default",
+            "intf": "Eth1/57",
+            "ipaddr": "192.168.57.254",
+            "status": "admin-down",
+            "link": "link-down",
+            "proto": "protocol-down"
+        },
+        {
+            "vrf": "default",
+            "intf": "Eth1/58",
+            "ipaddr": "192.168.58.254",
+            "status": "admin-down",
+            "link": "link-down",
+            "proto": "protocol-down"
+        },
+        {
+            "vrf": "default",
+            "intf": "Eth1/59",
+            "ipaddr": "192.168.59.254",
+            "status": "admin-down",
+            "link": "link-down",
+            "proto": "protocol-down"
         }
     ]
 }

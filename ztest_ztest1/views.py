@@ -19,7 +19,7 @@ import re
 import arubaapi
 
 # exceptions
-from netmiko import ConnectHandler
+from netmiko import ConnectHandler, SSHDetect,Netmiko
 from netmiko.ssh_exception import NetmikoTimeoutException
 from netmiko.ssh_exception import NetmikoAuthenticationException
 from paramiko.ssh_exception import SSHException
@@ -31,11 +31,17 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
         router = {'ip': cisco_ip,
                   'username': username,
                   'password': password,
-                  'device_type': 'cisco_ios',
+                  'device_type': 'autodetect',
                   'secret': secret
                   }
+        
         print(f"its hurry with {cisco_ip}")
-        session = ConnectHandler(**router)
+
+        detect_device = SSHDetect(**router)
+        device_type = detect_device.autodetect()
+        router['device_type'] = device_type
+        # print(router)
+        session = Netmiko(**router)
         session.enable()
         file_ptr = open(f"{cisco_ip}.logs", 'w')
         for cmd in cisco_cmds:
