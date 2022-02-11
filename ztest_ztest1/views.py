@@ -40,7 +40,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
         detect_device = SSHDetect(**router)
         device_type = detect_device.autodetect()
         router['device_type'] = device_type
-        # print(router)
+        print(router)
         session = Netmiko(**router)
         session.enable()
         file_ptr = open(f"{cisco_ip}.logs", 'w')
