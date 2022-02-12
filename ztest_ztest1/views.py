@@ -96,8 +96,9 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
         print(type(payload))
         print(payload)
         data_flex = json.dumps(display_output, indent=4)
-        headers = {"content-type": "application/json"}
+        headers = {"content-type": "application/json"}       
         r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
+
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
@@ -470,7 +471,8 @@ def fetchConfigDetail(request):
                 for cisco_ip in cisco_ip:
                     dummy_creds = hostDetails.objects.filter(ipaddress=cisco_ip)
                     serializer = host_detail_Serrializers(dummy_creds, many=True)
-                    response = dict({cisco_ip: serializer.data})                
+                    response = dict({cisco_ip: serializer.data})    
+                    print(response)            
                     if  not response[cisco_ip]:
                        
                         out_rest = {
@@ -487,6 +489,8 @@ def fetchConfigDetail(request):
                     username = response[cisco_ip][0]["username"]
                     password = response[cisco_ip][0]["password"]
                     secret = response[cisco_ip][0]["secret"]
+                    # device_type = response[cisco_ip][0]["deviceType"]
+                    # print(device_type)
                     time.sleep(1)
                    
                     
