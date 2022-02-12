@@ -749,23 +749,31 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         connect.enable()
         command = connect.send_config_set(config_commnds)
         
-        
-        if "% Invalid input detected at '^' marker." not in command:
-            output = {  
-                "template": config_name,
-                "command": config_commnds,
-                "success": True,
-                "cli_log": command.strip("").split("\n")
-            }
-            display_output.append(output)
+        try:
+            if "% Invalid input detected at '^' marker." not in command:
+                output = {  
+                    "template": config_name,
+                    "command": config_commnds,
+                    "success": True,
+                    "cli_log": command.strip("").split("\n")
+                }
+                display_output.append(output)
 
-        else:
+            else:
+                output = {
+                    "template": config_name,
+                    "command": config_commnds,
+                    "success": False,
+                    "cli_log": command.strip("").split("\n")
+                }
+                display_output.append(output)
+        except:
             output = {
-                "template": config_name,
-                "command": config_commnds,
-                "success": False,
-                "cli_log": command.strip("").split("\n")
-            }
+                    "template": config_name,
+                    "command": config_commnds,
+                    "success": False,
+                    "msg": f"device {cisco_ip} not reachable"
+                }
             display_output.append(output)
 
         payload = {
