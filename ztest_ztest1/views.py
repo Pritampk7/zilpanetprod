@@ -92,7 +92,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         print(type(payload))
         print(payload)
         headers = {"content-type": "application/json"}       
-        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
@@ -114,7 +114,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         }
         print(payload)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
         print(r.status_code)
         return r.status_code
     except SSHException:
@@ -134,7 +134,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         }
         print(payload)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
         print(r.status_code)
         print(f"SSH might not be configured on {cisco_ip}")
         return r.status_code
@@ -476,7 +476,7 @@ def fetchConfigDetail(request):
                         }
                         payload = {"cisco_output": out_rest}
                         headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
+                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
                                             headers=headers)
                         print(r.status_code)
                         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -517,7 +517,7 @@ def fetchConfigDetail(request):
                         }
                         payload = {"cisco_output": out_rest}
                         headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
+                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
                                             headers=headers)
                         print(r.status_code)
                         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -781,7 +781,7 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         #print(json.dumps(payload))
         # #data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
