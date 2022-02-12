@@ -25,22 +25,18 @@ from netmiko.ssh_exception import NetmikoAuthenticationException
 from paramiko.ssh_exception import SSHException
 
 import napalm
-def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
+def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, device_type):
     display_output = []
     try:
         router = {'ip': cisco_ip,
                   'username': username,
                   'password': password,
-                  'device_type': 'autodetect',
+                  'device_type': device_type,
                   'secret': secret
                   }
         
         print(f"its hurry with {cisco_ip}")
 
-        detect_device = SSHDetect(**router)
-        device_type = detect_device.autodetect()
-        router['device_type'] = device_type
-        print(router)
         session = Netmiko(**router)
         session.enable()
         file_ptr = open(f"{cisco_ip}.logs", 'w')
@@ -97,7 +93,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp):
         print(payload)
         data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}       
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="http://127.0.0.1:8000/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
 
         print(r.status_code)
         return json.dumps(payload, indent=4)
@@ -482,22 +478,22 @@ def fetchConfigDetail(request):
                         }
                         payload = {"cisco_output": out_rest}
                         headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://damp-caverns-24391.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
+                        r = requests.post(url="http://127.0.0.1:8000//ciscoOutput/", data=json.dumps(payload), verify=False,
                                             headers=headers)
                         print(r.status_code)
                         return Response(serializer.data, status=status.HTTP_200_OK)
                     username = response[cisco_ip][0]["username"]
                     password = response[cisco_ip][0]["password"]
                     secret = response[cisco_ip][0]["secret"]
-                    # device_type = response[cisco_ip][0]["deviceType"]
-                    # print(device_type)
+                    device_type = response[cisco_ip][0]["deviceType"]
+                    print(device_type)
                     time.sleep(1)
                    
                     
                     timestamp= request.data["timestamp"]
                     my_thread = threading.Thread(
                         target=cisco_ios,
-                        args=(cisco_ip, cisco_cmds, username, password, secret,timestamp)
+                        args=(cisco_ip, cisco_cmds, username, password, secret,timestamp,device_type)
                     )
                     my_thread.start()
                     cisco_Thedes.append(my_thread)
@@ -733,14 +729,14 @@ def update_device_details(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #this function is for configuring cisco devices
-def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp):
+def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp, devicetype):
     display_output = []
     print("connected to : ",cisco_ip)
     router = {
         "host": cisco_ip,
         "username": username,
         "password": password,
-        "device_type": "cisco_ios",
+        "device_type": devicetype,
         "secret": secret
     }
     print(config_data)
@@ -787,7 +783,7 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         #print(json.dumps(payload))
         # #data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="http://127.0.0.1:8000/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
@@ -875,9 +871,10 @@ def ciscoConfigConsole(request):
                     password = response[cisco_ip][0]["password"]
                     secret = response[cisco_ip][0]["secret"]             
                     timestamp= request.data["timestamp"]
+                    devicetype= response[cisco_ip][0]["deviceType"]
                     my_thread = threading.Thread(
                             target=cisco_ios_config,
-                            args=(cisco_ip, config_data, username, password, secret,timestamp)
+                            args=(cisco_ip, config_data, username, password, secret,timestamp, devicetype)
                         )
                     my_thread.start()
                     cisco_Thedes.append(my_thread)
