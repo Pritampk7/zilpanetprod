@@ -779,7 +779,7 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         #print(json.dumps(payload))
         # #data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="http://127.0.0.1:8000/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
