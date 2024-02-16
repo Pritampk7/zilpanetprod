@@ -20,8 +20,8 @@ import arubaapi
 
 # exceptions
 from netmiko import ConnectHandler, SSHDetect,Netmiko
-from netmiko.ssh_exception import NetmikoTimeoutException
-from netmiko.ssh_exception import NetmikoAuthenticationException
+from netmiko.exceptions import NetmikoTimeoutException
+from netmiko.exceptions import NetmikoAuthenticationException
 from paramiko.ssh_exception import SSHException
 
 import napalm
