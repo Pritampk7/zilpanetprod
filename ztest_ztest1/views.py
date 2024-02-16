@@ -1,4 +1,5 @@
-from .models import ipaddress, cisco_output, ciscoConfig, device_creds, ipAddressAndHostname, ipWithDetail, hostDetails, cisco_config_result
+from .models import ipaddress, cisco_output, ciscoConfig, device_creds, ipAddressAndHostname, ipWithDetail, hostDetails, \
+    cisco_config_result
 from .serializers import *
 from rest_framework import status, generics
 from rest_framework.response import Response
@@ -19,12 +20,13 @@ import re
 import arubaapi
 
 # exceptions
-from netmiko import ConnectHandler, SSHDetect,Netmiko
+from netmiko import ConnectHandler, SSHDetect, Netmiko
 from netmiko.exceptions import NetmikoTimeoutException
-from netmiko.exceptions import NetmikoAuthenticationException
 from paramiko.ssh_exception import SSHException
 
 import napalm
+
+
 def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, device_type):
     display_output = []
     try:
@@ -34,7 +36,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
                   'device_type': device_type,
                   'secret': secret
                   }
-        
+
         print(f"its hurry with {cisco_ip}")
 
         session = Netmiko(**router)
@@ -55,7 +57,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
                 else:
                     json_obj = output.replace('\n', ',').split(',')
                     out_res = {
-                        
+
                         "command": cmd,
                         "output": [j.rstrip() for j in json_obj if j != '']
                     }
@@ -91,12 +93,13 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         }
         print(type(payload))
         print(payload)
-        headers = {"content-type": "application/json"}       
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        headers = {"content-type": "application/json"}
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload),
+                          headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
-    except NetmikoTimeoutException:     
+    except NetmikoTimeoutException:
         print("the device is unreachable")
         out_res = [{
             "output": {
@@ -114,7 +117,8 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         }
         print(payload)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload),
+                          headers=headers, verify=False)
         print(r.status_code)
         return r.status_code
     except SSHException:
@@ -134,11 +138,12 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
         }
         print(payload)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), headers=headers,verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload),
+                          headers=headers, verify=False)
         print(r.status_code)
         print(f"SSH might not be configured on {cisco_ip}")
         return r.status_code
-        
+
 
     except EOFError:
         print(f"MAX attempts failed for {cisco_ip}")
@@ -147,7 +152,7 @@ def cisco_ios(cisco_ip, cisco_cmds, username, password, secret, timestamp, devic
 @api_view(['GET', 'POST'])
 def cisco_result(request):
     if request.method == 'GET':
-        timestamp = request.GET.get('timestamp','')
+        timestamp = request.GET.get('timestamp', '')
         cisco = cisco_output.objects.filter(timestamp=timestamp)
         serializer = CiscoOut_Serrializers(cisco, many=True)
         response = list(serializer.data)
@@ -164,6 +169,8 @@ def cisco_result(request):
 
 
 from django.views.decorators.csrf import ensure_csrf_cookie
+
+
 class Juniper:
 
     def get_system_arp(self, connect):
@@ -243,7 +250,7 @@ class Juniper:
         return output
 
     def get_optics(self, connect):
-        output = connect.get_optics() #test
+        output = connect.get_optics()  # test
         return output
 
     def get_probes_results(self, connect):
@@ -440,6 +447,7 @@ class Juniper:
         for thread in juniper_Threads:
             thread.join()
 
+
 @api_view(['GET', 'POST'])
 @ensure_csrf_cookie
 def fetchConfigDetail(request):
@@ -454,9 +462,9 @@ def fetchConfigDetail(request):
         serializer = ip_Serrializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print("serializer",serializer.data)
+            print("serializer", serializer.data)
             if request.data["ip_address"]["cisco"]["command"] and request.data["ip_address"]["cisco"][
-                "ipAddress"] :
+                "ipAddress"]:
                 cisco_cmds = request.data["ip_address"]["cisco"]["command"]
                 cisco_ip = request.data["ip_address"]["cisco"]["ipAddress"]
 
@@ -465,10 +473,9 @@ def fetchConfigDetail(request):
                 for cisco_ip in cisco_ip:
                     dummy_creds = hostDetails.objects.filter(ipaddress=cisco_ip)
                     serializer = host_detail_Serrializers(dummy_creds, many=True)
-                    response = dict({cisco_ip: serializer.data})    
-                    print(response)            
-                    if  not response[cisco_ip]:
-                       
+                    response = dict({cisco_ip: serializer.data})
+                    print(response)
+                    if not response[cisco_ip]:
                         out_rest = {
                             "device": cisco_ip,
                             "stdout": ["THIS DEVICE IS NOT REGISTERED WITH ZILPANET SOFTWARE"],
@@ -476,8 +483,9 @@ def fetchConfigDetail(request):
                         }
                         payload = {"cisco_output": out_rest}
                         headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
-                                            headers=headers)
+                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload),
+                                          verify=False,
+                                          headers=headers)
                         print(r.status_code)
                         return Response(serializer.data, status=status.HTTP_200_OK)
                     username = response[cisco_ip][0]["username"]
@@ -486,12 +494,11 @@ def fetchConfigDetail(request):
                     device_type = response[cisco_ip][0]["deviceType"]
                     print(device_type)
                     time.sleep(1)
-                   
-                    
-                    timestamp= request.data["timestamp"]
+
+                    timestamp = request.data["timestamp"]
                     my_thread = threading.Thread(
                         target=cisco_ios,
-                        args=(cisco_ip, cisco_cmds, username, password, secret,timestamp,device_type)
+                        args=(cisco_ip, cisco_cmds, username, password, secret, timestamp, device_type)
                     )
                     my_thread.start()
                     cisco_Thedes.append(my_thread)
@@ -507,9 +514,8 @@ def fetchConfigDetail(request):
                 for juniper_ip in juniper_ip:
                     dummy_creds = hostDetails.objects.filter(ipaddress=juniper_ip)
                     serializer = host_detail_Serrializers(dummy_creds, many=True)
-                    response = dict({juniper_ip: serializer.data})                
+                    response = dict({juniper_ip: serializer.data})
                     if not response[juniper_ip]:
-                       
                         out_rest = {
                             "device": juniper_ip,
                             "stdout": [f"THIS DEVICE {juniper_ip} IS NOT REGISTERED WITH ZILPANET SOFTWARE"],
@@ -517,23 +523,23 @@ def fetchConfigDetail(request):
                         }
                         payload = {"cisco_output": out_rest}
                         headers = {"content-type": "application/json"}
-                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload), verify=False,
-                                            headers=headers)
+                        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoOutput/", data=json.dumps(payload),
+                                          verify=False,
+                                          headers=headers)
                         print(r.status_code)
                         return Response(serializer.data, status=status.HTTP_200_OK)
                     print("pass")
                     username = response[juniper_ip][0]["username"]
                     password = response[juniper_ip][0]["password"]
                     secret = response[juniper_ip][0]["secret"]
-                    timestamp= request.data["timestamp"]
+                    timestamp = request.data["timestamp"]
                     junos_commands = request.data["ip_address"]["juniper"]["command"]  # aruba commands
                     juniper_ip = request.data["ip_address"]["juniper"]["ipAddress"]  # aruba ip address
                     juniper_obj = Juniper()
                     juniper_obj.establish_connection(juniper_ip, junos_commands, timestamp)
-                   
-                    
-                    timestamp= request.data["timestamp"]
-        return Response(data={"timestamp":timestamp}, status=status.HTTP_200_OK)
+
+                    timestamp = request.data["timestamp"]
+        return Response(data={"timestamp": timestamp}, status=status.HTTP_200_OK)
     else:
         return Response(request.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -646,8 +652,6 @@ def ipList(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 @api_view(['GET', 'POST'])
 def ipDetail(request):
     if request.method == 'GET':
@@ -669,7 +673,7 @@ def ipDetail(request):
 @api_view(['GET', 'POST'])
 def hostDetail(request):
     if request.method == 'GET':
-        cisco_devices = hostDetails.objects.filter(vendorName='cisco')    
+        cisco_devices = hostDetails.objects.filter(vendorName='cisco')
         cisco_devices_serializer = host_detail_Serrializers(cisco_devices, many=True)
         cisco_response = list(cisco_devices_serializer.data)
         cisco_ips = [i['ipaddress'] for i in cisco_response]
@@ -684,13 +688,13 @@ def hostDetail(request):
         aruba_ips = [i['ipaddress'] for i in aruba_response]
         return Response(
             {
-                "ipaddress": 
-                {
-                    "Cisco": cisco_ips,
-                    "Juniper": juniper_ips,
-                    "Aruba": aruba_ips
-                }
-                },status=status.HTTP_200_OK)
+                "ipaddress":
+                    {
+                        "Cisco": cisco_ips,
+                        "Juniper": juniper_ips,
+                        "Aruba": aruba_ips
+                    }
+            }, status=status.HTTP_200_OK)
 
     if request.method == 'POST':
         register_device = host_detail_Serrializers(data=request.data)
@@ -726,10 +730,11 @@ def update_device_details(request, pk):
         ip.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-#this function is for configuring cisco devices
-def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp, devicetype):
+
+# this function is for configuring cisco devices
+def cisco_ios_config(cisco_ip, config_data, username, password, secret, timestamp, devicetype):
     display_output = []
-    print("connected to : ",cisco_ip)
+    print("connected to : ", cisco_ip)
     router = {
         "host": cisco_ip,
         "username": username,
@@ -742,10 +747,10 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         connect = ConnectHandler(**router)
         connect.enable()
         command = connect.send_config_set(config_commnds)
-        
+
         try:
             if "% Invalid input detected at '^' marker." not in command:
-                output = {  
+                output = {
                     "template": config_name,
                     "command": config_commnds,
                     "success": True,
@@ -763,46 +768,47 @@ def cisco_ios_config(cisco_ip, config_data, username, password, secret,timestamp
                 display_output.append(output)
         except:
             output = {
-                    "template": config_name,
-                    "command": config_commnds,
-                    "success": False,
-                    "msg": f"device {cisco_ip} not reachable"
-                }
+                "template": config_name,
+                "command": config_commnds,
+                "success": False,
+                "msg": f"device {cisco_ip} not reachable"
+            }
             display_output.append(output)
 
         payload = {
             "success": str(output["success"]),
-            "timestamp": timestamp,           
+            "timestamp": timestamp,
             "data": {
                 cisco_ip: display_output
             }
         }
-        #print(payload)
-        #print(json.dumps(payload))
+        # print(payload)
+        # print(json.dumps(payload))
         # #data_flex = json.dumps(display_output, indent=4)
         headers = {"content-type": "application/json"}
-        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload), headers=headers, verify=False)
+        r = requests.post(url="https://zilpa-test.herokuapp.com/ciscoConfigOutput/", data=json.dumps(payload),
+                          headers=headers, verify=False)
         print(r.status_code)
         return json.dumps(payload, indent=4)
 
-def junos_ios_config(cisco_ip, config_data, username, password, secret,timestamp):
+
+def junos_ios_config(cisco_ip, config_data, username, password, secret, timestamp):
     display_output = []
-    print("connected to : ",cisco_ip)
+    print("connected to : ", cisco_ip)
     driver_ios = napalm.get_network_driver("junos")
     print("connected to junos")
     connect = driver_ios(hostname="192.168.137.49", username="root", password="root123",
-                     )
+                         )
     connect.open()
     config_data = ['set access radius-server 10.192.168.10 secret abcd@1234']
     for cmd in config_data:
         print(cmd)
         connect.commit_config()
-        command = connect.load_merge_candidate(config= cmd)
+        command = connect.load_merge_candidate(config=cmd)
         connect.commit_config()
         connect.close()
         print("kree")
-        
-        
+
         # if "% Invalid input detected at '^' marker." not in command:
         #     output = {  
         #         "template": "config_name",
@@ -836,7 +842,8 @@ def junos_ios_config(cisco_ip, config_data, username, password, secret,timestamp
         # print(r.status_code)
         # return json.dumps(payload, indent=4)
 
-@api_view(["GET","POST"])
+
+@api_view(["GET", "POST"])
 def ciscoConfigConsole(request):
     if request.method == 'GET':
         getData = ciscoConfig.objects.all()
@@ -848,78 +855,77 @@ def ciscoConfigConsole(request):
         serializer = ciscoConfigData(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            
+
             if "cisco" in request.data["payload"]:
-                config_data_= request.data["payload"]["cisco"]["configData"]
-                config_data= {}
-                for i,j in config_data_.items():
+                config_data_ = request.data["payload"]["cisco"]["configData"]
+                config_data = {}
+                for i, j in config_data_.items():
                     data1 = [i.split("\n") for i in j]
                     data = list(more_itertools.collapse(data1))
-                    config_data[i]= data
+                    config_data[i] = data
                 print("*************", json.dumps(config_data))
                 cisco_ip = request.data["payload"]["cisco"]["CiscoIpAddress"]
 
                 cisco_Thedes = []
-                
+
                 for cisco_ip in cisco_ip:
                     cisco_creds = hostDetails.objects.filter(ipaddress=cisco_ip)
                     serializer = host_detail_Serrializers(cisco_creds, many=True)
                     response = dict({cisco_ip: serializer.data})
                     username = response[cisco_ip][0]["username"]
                     password = response[cisco_ip][0]["password"]
-                    secret = response[cisco_ip][0]["secret"]             
-                    timestamp= request.data["timestamp"]
-                    devicetype= response[cisco_ip][0]["deviceType"]
+                    secret = response[cisco_ip][0]["secret"]
+                    timestamp = request.data["timestamp"]
+                    devicetype = response[cisco_ip][0]["deviceType"]
                     my_thread = threading.Thread(
-                            target=cisco_ios_config,
-                            args=(cisco_ip, config_data, username, password, secret,timestamp, devicetype)
-                        )
+                        target=cisco_ios_config,
+                        args=(cisco_ip, config_data, username, password, secret, timestamp, devicetype)
+                    )
                     my_thread.start()
                     cisco_Thedes.append(my_thread)
                 for thread in cisco_Thedes:
                     thread.join()
 
-            elif  request.data["payload"]["juniper"].keys():
+            elif request.data["payload"]["juniper"].keys():
                 print("juniper")
-                config_data_= request.data["payload"]["juniper"]["configData"]
-                config_data= {}
-                for i,j in config_data_.items():
+                config_data_ = request.data["payload"]["juniper"]["configData"]
+                config_data = {}
+                for i, j in config_data_.items():
                     data1 = [i.split("\n") for i in j]
                     data = list(more_itertools.collapse(data1))
-                    config_data[i]= data
+                    config_data[i] = data
                 print("*************", json.dumps(config_data))
                 juniper_ip = request.data["payload"]["juniper"]["JuniperIpAddress"]
 
                 juniper_Thedes = []
-                
+
                 for juniper_ip in juniper_ip:
                     cisco_creds = hostDetails.objects.filter(ipaddress=juniper_ip)
                     serializer = host_detail_Serrializers(cisco_creds, many=True)
                     response = dict({juniper_ip: serializer.data})
                     username = response[juniper_ip][0]["username"]
                     password = response[juniper_ip][0]["password"]
-                    secret = response[juniper_ip][0]["secret"]             
-                    timestamp= request.data["timestamp"]
+                    secret = response[juniper_ip][0]["secret"]
+                    timestamp = request.data["timestamp"]
                     print("reacged")
                     my_thread = threading.Thread(
-                            target=junos_ios_config,
-                            args=(juniper_ip, config_data, username, password, secret,timestamp)
-                        )
+                        target=junos_ios_config,
+                        args=(juniper_ip, config_data, username, password, secret, timestamp)
+                    )
                     my_thread.start()
                     juniper_Thedes.append(my_thread)
                 for thread in juniper_Thedes:
                     thread.join()
-            
-            
-        return Response(data={"timestamp":timestamp}, status=status.HTTP_200_OK)
+
+        return Response(data={"timestamp": timestamp}, status=status.HTTP_200_OK)
     else:
         return Response(request.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        
+
 @api_view(['GET', 'POST'])
 def ciscoConfig_result(request):
     if request.method == 'GET':
-        timestamp = request.GET.get('timestamp','')
+        timestamp = request.GET.get('timestamp', '')
         cisco = cisco_config_result.objects.filter(timestamp=timestamp)
         serializer = CiscoConfigOut_Serrializers(cisco, many=True)
         response = list(serializer.data)
